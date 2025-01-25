@@ -21,10 +21,10 @@ def send_codif(update: Update, context: CallbackContext):
     chat_id = query.message.chat_id
 
     if exam_type == "OGE":
-        file_path = "fi-9_oge_2025_kodif.pdf"  # Путь к кодификатору ОГЭ
+        file_path = "fi-9_oge_2025_kodif.pdf" 
         message = "Отправляю кодификатор для ОГЭ."
     elif exam_type == "EGE":
-        file_path = "code-2024.pdf"  # Путь к кодификатору ЕГЭ
+        file_path = "code-2024.pdf"  
         message = "Отправляю кодификатор для ЕГЭ."
 
     context.bot.send_document(chat_id=chat_id, document=open(file_path, 'rb'))
