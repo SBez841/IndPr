@@ -9,13 +9,28 @@ def clean_result (result):
     result = result.replace('{','').replace('int', '∫') [:-2]
 
 def codif(update: Update, context: CallbackContext):
-    file_path = "fi-9_oge_2025_kodif.pdf"
-    update.message.reply_document(document=open(file_path, 'rb'), caption = 'Кодификатор ОГЭ')
+    keyboard = [
+        [InlineKeyboardButton("ОГЭ", callback_data="OGE"), InlineKeyboardButton("ЕГЭ", callback_data="EGE")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
     
-    file_path = "code-2024.pdf"
-    update.message.reply_document(document=open(file_path, 'rb'), caption = 'Кодификатор ЕГЭ')
+    update.message.reply_text("Для какого экзамена вам нужен кодификатор?", reply_markup=reply_markup)
 
+def send_codif(update: Update, context: CallbackContext):
+    query = update.callback_query
+    exam_type = query.data  # Получаем, какую кнопку нажал пользователь
+    chat_id = query.message.chat_id
 
+    if exam_type == "OGE":
+        file_path = "fi-9_oge_2025_kodif.pdf"  # Путь к кодификатору ОГЭ
+        message = "Отправляю кодификатор для ОГЭ."
+    elif exam_type == "EGE":
+        file_path = "code-2024.pdf"  # Путь к кодификатору ЕГЭ
+        message = "Отправляю кодификатор для ЕГЭ."
+
+    context.bot.send_document(chat_id=chat_id, document=open(file_path, 'rb'))
+    query.edit_message_text(message)
+    
 def start(update: Update, context):
     update.message.reply_text("Привет, я помогу тебе с изучением физики!")
 
