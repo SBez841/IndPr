@@ -3,7 +3,7 @@ from telegram.ext import CallbackContext, Updater, CommandHandler, CallbackQuery
 import random
 
 def clean_result (result):
-    return result.replace('{"result":{"alternatives":[{"message":{"role":"assistant","text":"',' ').split('"status"')[0].strip().    replace('$','').replace('\\Delta','Δ').replace('frac', '').replace('\\n','').replace('\\','').replace('}{','/').replace('}','').replace('{','').replace('int', '∫') [:-2]
+    return result.replace('{"result":{"alternatives":[{"message":{"role":"assistant","text":"',' ').split('"status"')[0].strip().replace('$','').replace('\\Delta','Δ').replace('frac', '').replace('\\n','').replace('\\','').replace('}{','/').replace('}','').replace('{','').replace('int', '∫') [:-2]
 
 def codif(update: Update, context: CallbackContext):
     file_path = "fi-9_oge_2025_kodif.pdf"
