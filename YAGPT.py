@@ -9,7 +9,7 @@ def load_tasks(file_path):
 #Промпты нейросети
 def  get_response(history):
     prompt = {
-        'modelUri':'gpt://'+Folder_ID+'/yandexgpt-lite/rc',
+        'modelUri':'gpt://'+Folder_ID+'/yandexgpt/latest',
         'completionOptions':{
             'stream': False,
             'temperature': 0.6,
