@@ -1,15 +1,17 @@
 import json
+
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
+
 from YAGPT import get_response
-from func import codif, send_codif, recommend, start, help
+from func import recommend, start, help, codif
+
 from consts import TG_Token
 
 HISTORY_FILE = "user_history.json"
 history = {}
-user_states = {}
-user_choices = {}
 
+#Функция загрузки истории
 def load_history():
     global history
     try:
@@ -18,10 +20,12 @@ def load_history():
     except (FileNotFoundError, json.JSONDecodeError):
         history = {}
 
+#Функция сохранения истории
 def save_history():
     with open(HISTORY_FILE, "w", encoding="utf-8") as file:
         json.dump(history, file, ensure_ascii=False, indent=4)
 
+#Обработчик сообщений и добавление их в историю
 def handle_message(update: Update, context):
     user_id = str(update.message.from_user.id)
     user_message = update.message.text
@@ -38,12 +42,13 @@ def main():
     load_history()
     updater = Updater(TG_Token, use_context=True)
     dp = updater.dispatcher
+
+    #Команды /start, /help, /recommend, /codif
     dp.add_handler(CommandHandler("recommend", recommend))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("codif", codif))
-    
-    dp.add_handler(CallbackQueryHandler(send_codif))
+
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
     updater.start_polling()
     updater.idle()
