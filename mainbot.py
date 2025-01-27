@@ -50,6 +50,7 @@ def main():
     dp.add_handler(CommandHandler("codif", codif))
 
     dp.add_handler(CallbackQueryHandler(send_codif))
+    
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
     updater.start_polling()
     updater.idle()
