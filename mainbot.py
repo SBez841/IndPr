@@ -3,8 +3,8 @@ import json
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 
-from YAGPT import get_response
-from func import recommend, start, help, codif
+from YAGPT import get_response #Импорт функции ЯндексГПТ
+from func import recommend, start, help, codif, send_codif #Импорт команд бота
 
 from consts import TG_Token
 
@@ -49,6 +49,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("codif", codif))
 
+    dp.add_handler(CallbackQueryHandler(send_codif))
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
     updater.start_polling()
     updater.idle()
