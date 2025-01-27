@@ -1,6 +1,5 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext, Updater, CommandHandler, CallbackQueryHandler
-import random
 
 def clean_result (result):
     result = result.replace('{"result":{"alternatives":[{"message":{"role":"assistant","text":"',' ')
