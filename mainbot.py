@@ -1,10 +1,16 @@
 import json
 
+#Импорт функций библиотеки python-telegram-bot
 from telegram import Update, ReplyKeyboardRemove
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
+from telegram.ext import Updater, CommandHandler
+from telegram.ext import MessageHandler, Filters, CallbackQueryHandler
 
-from YAGPT import get_response #Импорт функции ЯндексГПТ
-from func import recommend, start, help, codif, send_codif #Импорт команд бота
+#Импорт функции ЯндексГПТ
+from YAGPT import get_response
+
+#Импорт команд бота
+from func import recommend, start, help
+from func import codif, send_codif, exam_demo, send_exam_demo
 
 from consts import TG_Token
 
@@ -30,8 +36,10 @@ def handle_message(update: Update, context):
     user_id = str(update.message.from_user.id)
     user_message = update.message.text
 
-    if user_id not in history:
+#Добавление/Очистка истории сообщений пользователя
+    if user_id not in history or len(history[user_id]) > 5:
         history[user_id] = []
+        
     history[user_id].append({"role": "user", "text": user_message})
     response = get_response(history[user_id])
     history[user_id].append({"role": "assistant", "text": response})
@@ -43,15 +51,21 @@ def main():
     updater = Updater(TG_Token, use_context=True)
     dp = updater.dispatcher
 
-    #Команды /start, /help, /recommend, /codif
+#Команды /start, /help, /recommend
     dp.add_handler(CommandHandler("recommend", recommend))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("codif", codif))
 
+#Команда /ExamDemo
+    dp.add_handler(CommandHandler("ExamDemo", exam_demo))
+    dp.add_handler(CallbackQueryHandler(send_exam_demo))
+
+#Команда /codif
+    dp.add_handler(CommandHandler("codif", codif))
     dp.add_handler(CallbackQueryHandler(send_codif))
     
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.command,
+                                  handle_message))
     updater.start_polling()
     updater.idle()
 
