@@ -76,7 +76,7 @@ def send_exam_demo(update: Update, context: CallbackContext):
 
     if exam_type == "OGE":
         codif_file = "физика-демо.pdf"
-        message = "Отправляю кодификатор для ОГЭ."
+        message = "Отправляю демо для ОГЭ."
     elif exam_type == "EGE":
         codif_file = "демо-фи.pdf"
         message = "Отправляю демо для ЕГЭ."
