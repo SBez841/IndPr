@@ -46,7 +46,7 @@ def help(update: Update, context):
     update.message.reply_text("1. /codif - отправляет кодификатор для ЕГЭ/ОГЭ по физике;"
                               "\n2. /recommend - отправляет список рекомендованных материалов для изучения физики"
                               "\n3. /ExamDemo - отправляет демоверсию ЕГЭ/ОГЭ по физике"
-                              "\n4. /reset - сбрасывает историюю сообщений пользователя)
+                              "\n4. /reset - сбрасывает историюю сообщений пользователя")
 
 #Команда /recommend
 def recommend(update: Update, context):
