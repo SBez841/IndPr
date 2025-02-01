@@ -64,8 +64,8 @@ def recommend(update: Update, context):
 def exam_demo(update: Update, context: CallbackContext):
     keyboard = [
         [InlineKeyboardButton("ОГЭ",
-                              callback_data="OGE"),
-         InlineKeyboardButton("ЕГЭ", callback_data="EGE")
+                              callback_data="ОГЭ"),
+         InlineKeyboardButton("ЕГЭ", callback_data="ЕГЭ")
          ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -77,10 +77,10 @@ def send_exam_demo(update: Update, context: CallbackContext):
     exam_type = query.data
     chat_id = query.message.chat_id
 
-    if exam_type == "OGE":
+    if exam_type == "ОГЭ":
         codif_file = "физика-демо.pdf"
         message = "Отправляю демо для ОГЭ."
-    elif exam_type == "EGE":
+    elif exam_type == "ЕГЭ":
         codif_file = "демо-фи.pdf"
         message = "Отправляю демо для ЕГЭ."
 
