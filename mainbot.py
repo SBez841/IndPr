@@ -44,7 +44,7 @@ def handle_message(update: Update, context):
     user_message = update.message.text
 
 #Добавление/Очистка истории сообщений пользователя
-    if user_id not in history or len(history[user_id]) > 11:
+    if user_id not in history or len(history[user_id]) > 37:
         history[user_id] = []
         
     history[user_id].append({"role": "user", "text": user_message})
