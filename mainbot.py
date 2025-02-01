@@ -17,7 +17,7 @@ from consts import TG_Token
 HISTORY_FILE = "user_history.json"
 history = {}
 
-#Функция загрузки истории
+#Функция загрузки (открытия) файла истории
 def load_history():
     global history
     try:
@@ -31,13 +31,20 @@ def save_history():
     with open(HISTORY_FILE, "w", encoding="utf-8") as file:
         json.dump(history, file, ensure_ascii=False, indent=4)
 
+#Команда очистки истории сообщений
+def reset_history(update: Update, context):
+    update.message.reply_text("История сообщений очищена.")
+    user_id = str(update.message.from_user.id)
+    history[user_id] = []
+    save_history()
+
 #Обработчик сообщений и добавление их в историю
 def handle_message(update: Update, context):
     user_id = str(update.message.from_user.id)
     user_message = update.message.text
 
 #Добавление/Очистка истории сообщений пользователя
-    if user_id not in history or len(history[user_id]) > 5:
+    if user_id not in history or len(history[user_id]) > 11:
         history[user_id] = []
         
     history[user_id].append({"role": "user", "text": user_message})
@@ -51,10 +58,11 @@ def main():
     updater = Updater(TG_Token, use_context=True)
     dp = updater.dispatcher
 
-#Команды /start, /help, /recommend
+#Команды /start, /help, /recommend, /reset
     dp.add_handler(CommandHandler("recommend", recommend))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("reset", reset_history))
 
 #Команда /ExamDemo
     dp.add_handler(CommandHandler("ExamDemo", exam_demo))
