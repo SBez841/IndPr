@@ -78,11 +78,11 @@ def send_exam_demo(update: Update, context: CallbackContext):
     chat_id = query.message.chat_id
 
     if exam_type == "ОГЭ":
-        codif_file = "физика-демо.pdf"
+        exam_file = "физика-демо.pdf"
         message = "Отправляю демо для ОГЭ."
     elif exam_type == "ЕГЭ":
-        codif_file = "демо-фи.pdf"
+        exam_file = "демо-фи.pdf"
         message = "Отправляю демо для ЕГЭ."
 
-    context.bot.send_document(chat_id=chat_id, document=open(codif_file, 'rb'))
+    context.bot.send_document(chat_id=chat_id, document=open(exam_file, 'rb'))
     query.edit_message_text(message)
