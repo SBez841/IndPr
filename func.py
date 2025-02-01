@@ -45,7 +45,8 @@ def start(update: Update, context):
 def help(update: Update, context):
     update.message.reply_text("1. /codif - отправляет кодификатор для ЕГЭ/ОГЭ по физике;"
                               "\n2. /recommend - отправляет список рекомендованных материалов для изучения физики"
-                              "\n3. /ExamDemo - отправляет демоверсию ЕГЭ/ОГЭ по физике")
+                              "\n3. /ExamDemo - отправляет демоверсию ЕГЭ/ОГЭ по физике"
+                              "\n4. /reset - сбрасывает историюю сообщений пользователя)
 
 #Команда /recommend
 def recommend(update: Update, context):
@@ -55,7 +56,9 @@ def recommend(update: Update, context):
                               "\n4. Каталог хадач ШКОЛКОВО (ссылка: "
                               "https://3.shkolkovo.online/catalog);"
                               "\n5. Купер Л. Физика для всех. Классическая физика;"
-                              "\n6. Чешев Ю.В ., Можаев В.В и др. Методическое пособие для поступающих в ВУЗ.")
+                              "\n6. Чешев Ю.В ., Можаев В.В и др. Методическое пособие для поступающих в ВУЗ;"
+                              "\n7. Сборник учебников по физике (ссылка: "
+                              "https://www.at.alleng.org/edu/phys9.htm")
 
 #Команда /ExamDemo
 def exam_demo(update: Update, context: CallbackContext):
