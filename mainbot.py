@@ -1,5 +1,3 @@
-import json
-
 #Импорт функций библиотеки python-telegram-bot
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import Updater, CommandHandler
@@ -13,6 +11,8 @@ from func import recommend, start, help
 from func import codif, send_codif, exam_demo, send_exam_demo
 
 from consts import TG_Token
+
+import json
 
 HISTORY_FILE = "user_history.json"
 history = {}
@@ -66,11 +66,13 @@ def main():
 
 #Команда /ExamDemo
     dp.add_handler(CommandHandler("ExamDemo", exam_demo))
-    dp.add_handler(CallbackQueryHandler(send_exam_demo))
+    dp.add_handler(CallbackQueryHandler(send_exam_demo, pattern="ОГЭ"))
+    dp.add_handler(CallbackQueryHandler(send_exam_demo, pattern="ЕГЭ"))
 
 #Команда /codif
     dp.add_handler(CommandHandler("codif", codif))
-    dp.add_handler(CallbackQueryHandler(send_codif))
+    dp.add_handler(CallbackQueryHandler(send_codif, pattern="OGE"))
+    dp.add_handler(CallbackQueryHandler(send_codif, pattern="EGE"))
     
     dp.add_handler(MessageHandler(Filters.text & ~Filters.command,
                                   handle_message))
